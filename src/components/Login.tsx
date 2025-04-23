@@ -100,14 +100,16 @@ export const Login = () => {
                   helperText={formik.touched.password && formik.errors.password}
                 />
               </Box>
+              <Box sx={{maxWidth:"80px"}}>
               <Button
                 type="submit"
                 variant="contained"
                 sx={{ marginLeft: "90px" }}
-               
+                disabled={loading}
               >
-                {loading ? "Logging in..." : "Submit"}
+              Submit
               </Button>
+              </Box>
               <p style={{ marginLeft: "30px" }}>
                 Don't have an account? <Link to="/register">Register</Link>
               </p>
