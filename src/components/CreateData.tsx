@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Grid, LinearProgress, TextField, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "./redux-toolkit/hooks";
 import { useState } from "react";
-import { addData, Data } from "./redux-toolkit/dataSlice";
+import { addData, Data, editData } from "./redux-toolkit/dataSlice";
 
 const AddDataSchema = Yup.object().shape({
   firstName: Yup.string().required("Required!!"),
@@ -13,21 +13,22 @@ const AddDataSchema = Yup.object().shape({
   age: Yup.number().required("Required!!"),
 });
 
-interface EditDataProps{
-    user?: Data;
-}
-const CreateData = ({user}:EditDataProps) => {
+
+const CreateData = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  console.log(user,'user...');
-  
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const{id}= useParams();
+  const data: Data[] = JSON.parse(localStorage.getItem("Users") as string);
+  const user:Data | undefined = data.find((data) => data.id === Number(id));
+  
   const formik = useFormik({
+    
     initialValues: {
-      firstName: "",
-      lastName: "",
-      id: 0,
-      age: 0,
+      firstName: user?.firstName||"",
+      lastName: user?.lastName||"",
+      id: user?.id||0,
+      age: user?.age||0,
     },
     validationSchema: AddDataSchema,
     onSubmit: (values) => {
@@ -35,14 +36,24 @@ const CreateData = ({user}:EditDataProps) => {
       console.log(values);
       
       setTimeout(() => {
-        dispatch(addData(values));
+        if (user) {
+          dispatch(editData(values));
+        } else {
+          dispatch(addData(values));
+        }
         setLoading(false);
         navigate("/dashboard");
       }, 5000);
+      
     },
   });
   return (
+    <>
+    {
+      loading?<LinearProgress/>:''
+    }
     <Box sx={{ margin: "25px", boxShadow: 5 }}>
+    
       <Box
         sx={{
           display: "flex",
@@ -51,7 +62,7 @@ const CreateData = ({user}:EditDataProps) => {
         }}
       >
         <Typography variant="h5" sx={{ marginLeft: "40px", marginTop: "20px" }}>
-          Add Data
+          {user ? "Edit Data":"Add Data"}
         </Typography>
       </Box>
 
@@ -146,6 +157,7 @@ const CreateData = ({user}:EditDataProps) => {
         </form>
       </Box>
     </Box>
+    </>
   );
 };
 

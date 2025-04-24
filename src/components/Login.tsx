@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
-import { loginStart, loginSuccess } from "./redux-toolkit/authSlice";
-import { useAppDispatch, useAppSelector } from "./redux-toolkit/hooks";
+import { useEffect, useState } from "react";
+import LinearProgress from "@mui/material/LinearProgress";
+import { loginSuccess } from "./redux-toolkit/authSlice";
+import { useAppDispatch } from "./redux-toolkit/hooks";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required!!"),
@@ -14,12 +14,15 @@ const LoginSchema = Yup.object().shape({
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch =useAppDispatch();
-  const selector = useAppSelector((state)=>state.auth);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const user = localStorage.getItem("loginUser");
 
-  console.log(selector);
-  
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +31,6 @@ export const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      dispatch(loginStart());
       setLoading(true);
       setTimeout(() => {
         dispatch(loginSuccess(values));
@@ -39,6 +41,7 @@ export const Login = () => {
   });
   return (
     <>
+      <Box>{loading ? <LinearProgress /> : ""}</Box>
       <Box
         sx={{
           display: "flex",
@@ -100,15 +103,15 @@ export const Login = () => {
                   helperText={formik.touched.password && formik.errors.password}
                 />
               </Box>
-              <Box sx={{maxWidth:"80px"}}>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ marginLeft: "90px" }}
-                disabled={loading}
-              >
-              Submit
-              </Button>
+              <Box sx={{ maxWidth: "80px" }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ marginLeft: "90px" }}
+                  disabled={loading}
+                >
+                  Submit
+                </Button>
               </Box>
               <p style={{ marginLeft: "30px" }}>
                 Don't have an account? <Link to="/register">Register</Link>

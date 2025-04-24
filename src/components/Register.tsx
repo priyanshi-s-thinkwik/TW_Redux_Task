@@ -4,7 +4,9 @@ import * as Yup from "yup";
 import { useAppDispatch } from "./redux-toolkit/hooks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { registerStart, registerSuccess } from "./redux-toolkit/registerSlice";
+import { registerSuccess } from "./redux-toolkit/registerSlice";
+import LinearProgress from "@mui/material/LinearProgress";
+
 
 const RegisterSchema = Yup.object().shape({
   firstName: Yup.string().required("Required!!"),
@@ -26,17 +28,19 @@ export const Register = () => {
     },
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
-      dispatch(registerStart());
       setLoading(true);
       setTimeout(() => {
         dispatch(registerSuccess(values));
         setLoading(false);
-        navigate('/dashboard')
+        navigate("/dashboard");
       }, 5000);
     },
   });
   return (
     <>
+    {
+      loading? <LinearProgress/>:''
+    }
       <Box
         sx={{
           height: "80vh",
@@ -139,8 +143,9 @@ export const Register = () => {
                 type="submit"
                 variant="contained"
                 sx={{ marginLeft: "90px" }}
+                disabled={loading}
               >
-               {loading ? 'Loading..':'Register'}
+                Register
               </Button>
             </form>
           </Box>
