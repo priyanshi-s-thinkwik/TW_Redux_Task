@@ -1,10 +1,11 @@
 import {  useNavigate, useParams } from "react-router-dom";
 import { Box, Button, Card, Typography } from "@mui/material";
-import { Data } from "./redux-toolkit/dataSlice";
+import { Data } from "../types/data.types";
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 const ViewData = () => {
   const navigate = useNavigate();
   const{id}= useParams();
-const data: Data[] = JSON.parse(localStorage.getItem("Users") as string);
+const data: Data[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string);
 const user:Data | undefined = data.find((data) => data.id === Number(id));
 
   return (

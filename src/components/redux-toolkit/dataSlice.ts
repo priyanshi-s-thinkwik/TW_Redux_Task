@@ -1,14 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AddDataState, Data } from "../types/data.types";
 
-export interface Data {
-  firstName: string;
-  lastName: string;
-  id: number;
-  age: number;
-}
-export interface AddDataState {
-  data: Data[] | null;
-}
+
 
 const initialState: AddDataState = {
   data: [],

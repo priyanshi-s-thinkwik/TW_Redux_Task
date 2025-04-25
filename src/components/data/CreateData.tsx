@@ -2,9 +2,11 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Box, Button, Grid, LinearProgress, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch } from "./redux-toolkit/hooks";
+import { useAppDispatch } from "../redux-toolkit/hooks";
 import { useState } from "react";
-import { addData, Data, editData } from "./redux-toolkit/dataSlice";
+import { addData,  editData } from "../redux-toolkit/dataSlice";
+import { Data } from "../types/data.types";
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 
 const AddDataSchema = Yup.object().shape({
   firstName: Yup.string().required("Required!!"),
@@ -19,8 +21,8 @@ const CreateData = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const{id}= useParams();
-  const data: Data[] = JSON.parse(localStorage.getItem("Users") as string);
-  const user:Data | undefined = data.find((data) => data.id === Number(id));
+  const data: Data[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string);
+  const user:Data | undefined = data?.find((data) => data.id === Number(id));
   
   const formik = useFormik({
     

@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import * as Yup from "yup";
-import { useAppDispatch } from "./redux-toolkit/hooks";
+import { useAppDispatch } from "../redux-toolkit/hooks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { registerSuccess } from "./redux-toolkit/registerSlice";
+import { registerSuccess } from "../redux-toolkit/registerSlice";
 import LinearProgress from "@mui/material/LinearProgress";
 
 

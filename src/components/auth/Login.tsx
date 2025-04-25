@@ -4,8 +4,9 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
-import { loginSuccess } from "./redux-toolkit/authSlice";
-import { useAppDispatch } from "./redux-toolkit/hooks";
+import { loginSuccess } from "../redux-toolkit/authSlice";
+import { useAppDispatch } from "../redux-toolkit/hooks";
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required!!"),
@@ -16,7 +17,7 @@ export const Login = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = localStorage.getItem("loginUser");
+  const user = localStorage.getItem(LOCAL_STORAGE_KEYS.LOGIN_USER);
 
   useEffect(() => {
     if (user) {

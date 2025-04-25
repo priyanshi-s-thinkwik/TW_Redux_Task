@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RegisterState, RegisterUser } from "../types/register.types";
 
-interface RegisterUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
-interface RegisterState {
-  registerUser: RegisterUser | null;
-}
 
 const initialState: RegisterState = {
   registerUser: null,

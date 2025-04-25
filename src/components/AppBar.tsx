@@ -4,9 +4,10 @@ import { Box, Button } from "@mui/material";
 import { useAppDispatch } from "./redux-toolkit/hooks";
 import { logout } from "./redux-toolkit/authSlice";
 import { useNavigate } from "react-router-dom";
+import { LOCAL_STORAGE_KEYS } from "./helpers/enums";
 
 export default function ButtonAppBar() {
-  const user = JSON.parse(localStorage.getItem("loginUser") as string);
+  const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.LOGIN_USER ) as string);
   const email = user.email;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

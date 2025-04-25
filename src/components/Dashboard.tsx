@@ -3,11 +3,13 @@ import Paper from "@mui/material/Paper";
 import AppBar from "./AppBar";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Data, deleteData } from "./redux-toolkit/dataSlice";
+import {  deleteData } from "./redux-toolkit/dataSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useAppDispatch } from "./redux-toolkit/hooks";
+import { Data } from "./types/data.types";
+import { LOCAL_STORAGE_KEYS } from "./helpers/enums";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -66,7 +68,7 @@ export default function Dashboard() {
     },
   ];
 
-  const rows: Data[] = JSON.parse(localStorage.getItem("Users") as string);
+  const rows: Data[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string);
 
   const paginationModel = { page: 0, pageSize: 5 };
 

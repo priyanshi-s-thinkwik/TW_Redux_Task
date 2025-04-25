@@ -1,16 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
+import { Login } from "./components/auth/Login";
+import { Register } from "./components/auth/Register";
 import Dashboard from "./components/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
-import CreateData from "./components/CreateData";
-import ViewData from "./components/ViewData";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import CreateData from "./components/data/CreateData";
+import ViewData from "./components/data/ViewData";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route element={<ProtectedRoute />}>
