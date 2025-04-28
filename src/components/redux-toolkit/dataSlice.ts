@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AddDataState, Data } from "../types/data.types";
-
-
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 
 const initialState: AddDataState = {
   data: [],
@@ -12,27 +11,28 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     addData(state, action: PayloadAction<Data>) {
-      console.log(action.payload);
-
-      state.data?.push(action.payload);
-      localStorage.setItem("Users", JSON.stringify(state.data));
+      state.data.push(action.payload);
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.USERS,
+        JSON.stringify(state.data)
+      );
     },
     deleteData(state, action: PayloadAction<number>) {
-      
-      const data: Data[] = JSON.parse(localStorage.getItem("Users") as string);
-      state.data = data.filter((data) => data.id !== action.payload);
-      localStorage.setItem("Users", JSON.stringify(state.data));
+      state.data = state.data.filter((data) => data.id !== action.payload);
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.USERS,
+        JSON.stringify(state.data)
+      );
     },
     editData(state, action: PayloadAction<Data>) {
-      const data: Data[] = JSON.parse(localStorage.getItem("Users") as string);
-      const id = data.findIndex((data) => data.id === action.payload.id);
+      const id :number= state.data.findIndex((data) => data.id === action.payload.id);
       if (id >= 0) {
-        data[id] = action.payload;
+        state.data[id] = action.payload;
       }
-      state.data = data;
-      console.log(state.data);
-
-      localStorage.setItem("Users", JSON.stringify(state.data));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.USERS,
+        JSON.stringify(state.data)
+      );
     },
   },
 });

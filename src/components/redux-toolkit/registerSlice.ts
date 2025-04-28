@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RegisterState, RegisterUser } from "../types/register.types";
-
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 
 const initialState: RegisterState = {
   registerUser: null,
@@ -11,7 +11,10 @@ const registerSlice = createSlice({
   initialState,
   reducers: {
     registerSuccess(state, action: PayloadAction<RegisterUser>) {
-      localStorage.setItem("registerUser", JSON.stringify(action.payload));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.REGISTER_USER,
+        JSON.stringify(action.payload)
+      );
       state.registerUser = action.payload;
     },
   },

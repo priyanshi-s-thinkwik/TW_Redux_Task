@@ -5,5 +5,5 @@ export interface Data {
     age: number;
   }
   export interface AddDataState {
-    data: Data[] | null;
+    data: Data[] 
   }

@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { LOCAL_STORAGE_KEYS } from "./helpers/enums";
 
 export default function ButtonAppBar() {
-  const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.LOGIN_USER ) as string);
+  const user = JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_KEYS.LOGIN_USER) as string
+  );
   const email = user.email;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,7 +23,6 @@ export default function ButtonAppBar() {
       <Toolbar>
         <Button color="inherit">{email ? email : ""}</Button>
         <Box sx={{ flexGrow: 1 }} />
-
         <Button
           variant="outlined"
           color="inherit"

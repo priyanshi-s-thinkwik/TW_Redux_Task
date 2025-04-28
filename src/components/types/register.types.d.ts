@@ -6,6 +6,6 @@ export interface RegisterUser {
   }
   
  export  interface RegisterState {
-    registerUser: RegisterUser | null;
+    registerUser: RegisterUser | null
   }
   

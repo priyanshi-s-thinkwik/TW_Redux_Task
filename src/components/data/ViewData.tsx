@@ -1,12 +1,14 @@
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, Card, Typography } from "@mui/material";
 import { Data } from "../types/data.types";
 import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 const ViewData = () => {
   const navigate = useNavigate();
-  const{id}= useParams();
-const data: Data[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string);
-const user:Data | undefined = data.find((data) => data.id === Number(id));
+  const { id } = useParams();
+  const data: Data[] = JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string
+  );
+  const user: Data | undefined = data.find((data) => data.id === Number(id));
 
   return (
     <Card
@@ -23,14 +25,22 @@ const user:Data | undefined = data.find((data) => data.id === Number(id));
           <strong>UserData</strong>
         </Typography>
         <Box>
-            {user?(
-                <>
-          <Typography>ID : {user.id} </Typography>
-          <Typography>FirstName : {user.firstName} </Typography>
-          <Typography>LastName : {user.lastName} </Typography>
-          <Typography>Age : {user.age} </Typography>
-          <Button sx={{ marginLeft: "340px" }} onClick={()=>navigate("/dashboard")}>Cancel</Button>
-          </> ):(<>User not found.</>)}
+          {user ? (
+            <>
+              <Typography>ID : {user.id} </Typography>
+              <Typography>FirstName : {user.firstName} </Typography>
+              <Typography>LastName : {user.lastName} </Typography>
+              <Typography>Age : {user.age} </Typography>
+              <Button
+                sx={{ marginLeft: "340px" }}
+                onClick={() => navigate("/dashboard")}
+              >
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <>User not found.</>
+          )}
         </Box>
       </Box>
     </Card>

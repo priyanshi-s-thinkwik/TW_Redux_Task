@@ -1,17 +1,12 @@
 import { useFormik } from "formik";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import { loginSuccess } from "../redux-toolkit/authSlice";
 import { useAppDispatch } from "../redux-toolkit/hooks";
 import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required!!"),
-  password: Yup.string().min(8).max(8).required("Required!!"),
-});
+import { LoginSchema } from "../validation/authValidation";
 
 export const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -40,6 +35,8 @@ export const Login = () => {
       }, 5000);
     },
   });
+
+  
   return (
     <>
       <Box>{loading ? <LinearProgress /> : ""}</Box>
@@ -83,8 +80,8 @@ export const Login = () => {
                   onChange={formik.handleChange}
                   value={formik.values.email}
                   sx={{ width: "270px" }}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
+                  error={formik.touched.email&&Boolean(formik.errors.email)}
+                  helperText={formik.touched.email&&formik.errors.email}
                 />
               </Box>
 
@@ -98,9 +95,7 @@ export const Login = () => {
                   onChange={formik.handleChange}
                   value={formik.values.password}
                   sx={{ width: "270px" }}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
+                  error={formik.touched.email&&Boolean(formik.errors.password)}
                   helperText={formik.touched.password && formik.errors.password}
                 />
               </Box>

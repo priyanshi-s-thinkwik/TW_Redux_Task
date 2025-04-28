@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, User } from "../types/auth.types";
-
-
+import { LOCAL_STORAGE_KEYS } from "../helpers/enums";
 
 const initialState: AuthState = {
   user: null,
@@ -12,7 +11,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess(state, action: PayloadAction<User>) {
-      localStorage.setItem("loginUser", JSON.stringify(action.payload));
+      localStorage.setItem(
+        LOCAL_STORAGE_KEYS.LOGIN_USER,
+        JSON.stringify(action.payload)
+      );
       state.user = action.payload;
     },
     logout(state) {

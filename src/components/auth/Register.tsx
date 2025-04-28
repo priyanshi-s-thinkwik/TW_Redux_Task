@@ -1,19 +1,11 @@
 import { useFormik } from "formik";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
-import * as Yup from "yup";
 import { useAppDispatch } from "../redux-toolkit/hooks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSuccess } from "../redux-toolkit/registerSlice";
 import LinearProgress from "@mui/material/LinearProgress";
-
-
-const RegisterSchema = Yup.object().shape({
-  firstName: Yup.string().required("Required!!"),
-  lastName: Yup.string().required("Required!!"),
-  email: Yup.string().email("Invalid email").required("Required!!"),
-  password: Yup.string().min(8).max(8).required("Required!!"),
-});
+import { RegisterSchema } from "../validation/registerValidation";
 
 export const Register = () => {
   const dispatch = useAppDispatch();
@@ -38,9 +30,7 @@ export const Register = () => {
   });
   return (
     <>
-    {
-      loading? <LinearProgress/>:''
-    }
+      {loading ? <LinearProgress /> : ""}
       <Box
         sx={{
           height: "80vh",
@@ -82,12 +72,8 @@ export const Register = () => {
                   onChange={formik.handleChange}
                   value={formik.values.firstName}
                   sx={{ width: "270px" }}
-                  error={
-                    formik.touched.firstName && Boolean(formik.errors.firstName)
-                  }
-                  helperText={
-                    formik.touched.firstName && formik.errors.firstName
-                  }
+                  error={Boolean(formik.errors.firstName)}
+                  helperText={formik.errors.firstName}
                 />
               </Box>
 

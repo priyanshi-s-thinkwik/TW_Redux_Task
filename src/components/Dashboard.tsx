@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import AppBar from "./AppBar";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {  deleteData } from "./redux-toolkit/dataSlice";
+import { deleteData } from "./redux-toolkit/dataSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -43,7 +43,6 @@ export default function Dashboard() {
           <>
             <IconButton
               onClick={() => {
-                console.log("Edit", params.row);
                 navigate(`/editData/${params.row.id}`);
               }}
             >
@@ -57,9 +56,11 @@ export default function Dashboard() {
             >
               <DeleteIcon />
             </IconButton>
-            <IconButton onClick={()=>{
-              navigate(`/viewData/${params.row.id}`)
-            }}>
+            <IconButton
+              onClick={() => {
+                navigate(`/viewData/${params.row.id}`);
+              }}
+            >
               <VisibilityIcon />
             </IconButton>
           </>
@@ -68,7 +69,9 @@ export default function Dashboard() {
     },
   ];
 
-  const rows: Data[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string);
+  const rows: Data[] = JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string
+  );
 
   const paginationModel = { page: 0, pageSize: 5 };
 
