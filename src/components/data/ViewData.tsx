@@ -11,7 +11,7 @@ const ViewData = () => {
   const user: Data | undefined = data.find((data) => data.id === Number(id));
   
   
-
+console.log('user', user);
   return (
     <Card
       sx={{
