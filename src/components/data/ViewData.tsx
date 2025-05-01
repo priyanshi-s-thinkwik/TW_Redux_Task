@@ -9,6 +9,8 @@ const ViewData = () => {
     localStorage.getItem(LOCAL_STORAGE_KEYS.USERS) as string
   );
   const user: Data | undefined = data.find((data) => data.id === Number(id));
+  
+  
 
   return (
     <Card
